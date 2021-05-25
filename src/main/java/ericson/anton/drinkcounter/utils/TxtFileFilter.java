@@ -25,6 +25,5 @@ public class TxtFileFilter extends FileFilter {
         String fileName = pathname.getName();
         String[] fileNameExtension = fileName.split("\\.");
         return fileNameExtension.length == 2 ? fileNameExtension[1] : "";
-
     }
 }
