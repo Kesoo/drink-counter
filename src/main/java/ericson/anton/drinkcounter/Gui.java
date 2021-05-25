@@ -2,8 +2,13 @@ package ericson.anton.drinkcounter;
 
 import ericson.anton.drinkcounter.utils.TxtFileFilter;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
 
 public class Gui {
     private static final String WINDOW_TITLE = "RUSTET Drink Counter";
@@ -31,11 +36,19 @@ public class Gui {
 
     private JButton createOpenFileButton() {
         JButton openFileButton = new JButton(Gui.OPEN_FILE_BUTTON_TEXT);
+
         JFileChooser fileChooser = new JFileChooser();
         TxtFileFilter fileFilter = new TxtFileFilter();
         fileChooser.setFileFilter(fileFilter);
+
+        DrinkCounter drinkCounter = new DrinkCounter();
+
         openFileButton.addActionListener(actionEvent -> {
-            fileChooser.showOpenDialog(null);
+            int returnInt = fileChooser.showOpenDialog(null);
+
+            if (returnInt == JFileChooser.APPROVE_OPTION){
+                drinkCounter.createDrinkListFromFile(fileChooser.getSelectedFile(), false);
+            }
         });
 
         return openFileButton;
