@@ -1,6 +1,5 @@
 package ericson.anton.drinkcounter;
 
-
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +18,7 @@ import java.util.Map;
 public class DrinkCounter {
 
     public String createDrinkListFromFile(File drinkFile, boolean backupShouldBeCreated) {
-        String outputFileName = "";
+        String outputFileName;
         try {
             if (backupShouldBeCreated){
                 writeBackupFile(drinkFile);
@@ -27,9 +26,9 @@ public class DrinkCounter {
             Map<String,Integer> countedDrinks = countDrinks(drinkFile);
             outputFileName = createOutputFile(countedDrinks);
         } catch (IOException ioException) {
-            outputFileName = "An error occurred: " + ioException.getMessage();
+            return "An error occurred: " + ioException.getMessage();
         }
-        return outputFileName + " was created!";
+        return backupShouldBeCreated ? outputFileName + "\nBackup was created!" : outputFileName;
     }
 
     private Map<String, Integer> countDrinks(File drinkFile) throws IOException {
@@ -92,8 +91,11 @@ public class DrinkCounter {
         Path originalFilePath = Paths.get(drinkFile.getAbsolutePath());
         String backupFileName = "DRINKS-BACKUP-CREATED-" + getTimeDateNow() + ".TXT";
         Path backupFilePath = Paths.get("./", backupFileName);
-
-        Files.copy(originalFilePath, backupFilePath, StandardCopyOption.COPY_ATTRIBUTES);
+        if (backupFilePath.toFile().exists()) {
+            throw new IOException("Backup file already exists");
+        } else {
+            Files.copy(originalFilePath, backupFilePath, StandardCopyOption.COPY_ATTRIBUTES);
+        }
     }
 
     private String getTimeDateNow() {
