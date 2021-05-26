@@ -4,6 +4,8 @@ import ericson.anton.drinkcounter.utils.TxtFileFilter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class Gui {
     private static final String WINDOW_TITLE = "RUSTET Drink Counter";
@@ -19,6 +21,7 @@ public class Gui {
 
     private final DrinkCounter drinkCounter;
     private final JTextArea statusTextArea;
+    private boolean shouldBackup;
 
     public Gui() {
         this.drinkCounter = new DrinkCounter();
@@ -28,6 +31,8 @@ public class Gui {
         statusTextArea.setForeground(SECONDARY_TEXT_COLOR);
         statusTextArea.setEditable(false);
         statusTextArea.setLineWrap(true);
+
+        shouldBackup = false;
     }
 
     public void setupWindow(){
@@ -41,8 +46,10 @@ public class Gui {
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel panel = new JPanel();
-        panel.setBackground(BACKGROUND_COLOR);
         panel.add(createOpenFileButton());
+        panel.add(createBackupCheckbox());
+        panel.setBackground(BACKGROUND_COLOR);
+
         mainFrame.getContentPane().add(headerLabel, BorderLayout.BEFORE_FIRST_LINE);
         mainFrame.getContentPane().add(panel, BorderLayout.CENTER);
         mainFrame.getContentPane().add(statusTextArea, BorderLayout.AFTER_LAST_LINE);
@@ -64,11 +71,24 @@ public class Gui {
             int returnInt = fileChooser.showOpenDialog(null);
 
             if (returnInt == JFileChooser.APPROVE_OPTION){
-                String outputFileResponse = drinkCounter.createDrinkListFromFile(fileChooser.getSelectedFile(), false);
+                String outputFileResponse = drinkCounter.createDrinkListFromFile(fileChooser.getSelectedFile(), shouldBackup);
                 statusTextArea.setText(outputFileResponse);
             }
         });
 
         return openFileButton;
+    }
+
+    private JCheckBox createBackupCheckbox() {
+        JCheckBox checkBox = new JCheckBox("Backup DRINKS.txt file");
+        checkBox.setBackground(BACKGROUND_COLOR);
+        checkBox.setForeground(SECONDARY_TEXT_COLOR);
+
+        checkBox.addItemListener(itemEvent -> {
+            int checkBoxState = itemEvent.getStateChange();
+            shouldBackup = checkBoxState == ItemEvent.SELECTED;
+        });
+
+        return checkBox;
     }
 }
