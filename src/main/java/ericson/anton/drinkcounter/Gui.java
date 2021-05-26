@@ -5,7 +5,6 @@ import ericson.anton.drinkcounter.utils.TxtFileFilter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class Gui {
     private static final String WINDOW_TITLE = "RUSTET Drink Counter";
@@ -13,6 +12,7 @@ public class Gui {
     private static final Integer WINDOW_HEIGHT = 150;
     private static final String OPEN_FILE_BUTTON_TEXT = "Open file";
     private static final String HEADER_TEXT = "Open the DRINKS.TXT file from the SD Card.";
+    private static final String BACKUP_CHECK_BOX_TEXT = "Backup DRINKS.txt file";
 
     private static final Color BACKGROUND_COLOR = new Color(24, 25, 26,255);
     private static final Color PRIMARY_TEXT_COLOR = new Color(244, 240, 240,255);
@@ -80,7 +80,7 @@ public class Gui {
     }
 
     private JCheckBox createBackupCheckbox() {
-        JCheckBox checkBox = new JCheckBox("Backup DRINKS.txt file");
+        JCheckBox checkBox = new JCheckBox(BACKUP_CHECK_BOX_TEXT);
         checkBox.setBackground(BACKGROUND_COLOR);
         checkBox.setForeground(SECONDARY_TEXT_COLOR);
 
