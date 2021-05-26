@@ -2,8 +2,16 @@ package ericson.anton.drinkcounter;
 
 import ericson.anton.drinkcounter.utils.TxtFileFilter;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 
 public class Gui {
