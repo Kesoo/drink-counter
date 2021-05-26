@@ -29,7 +29,7 @@ public class DrinkCounter {
         } catch (IOException ioException) {
             outputFileName = "An error occurred: " + ioException.getMessage();
         }
-        return outputFileName;
+        return outputFileName + " was created!";
     }
 
     private Map<String, Integer> countDrinks(File drinkFile) throws IOException {
