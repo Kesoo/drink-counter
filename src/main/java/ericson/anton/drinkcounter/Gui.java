@@ -17,6 +17,12 @@ public class Gui {
     private static final String OPEN_FILE_BUTTON_TEXT = "Open file";
     private static final String HEADER_TEXT = "Open the DRINKS.TXT file from the SD Card.";
 
+    private final DrinkCounter drinkCounter;
+
+    public Gui() {
+        this.drinkCounter = new DrinkCounter();
+    }
+
     public void setupWindow(){
         JFrame frame = new JFrame(WINDOW_TITLE);
         frame.setResizable(false);
@@ -40,8 +46,6 @@ public class Gui {
         JFileChooser fileChooser = new JFileChooser();
         TxtFileFilter fileFilter = new TxtFileFilter();
         fileChooser.setFileFilter(fileFilter);
-
-        DrinkCounter drinkCounter = new DrinkCounter();
 
         openFileButton.addActionListener(actionEvent -> {
             int returnInt = fileChooser.showOpenDialog(null);
