@@ -31,7 +31,7 @@ public class DrinkCounter {
         return backupShouldBeCreated ? outputFileName + "\nBackup was created!" : outputFileName;
     }
 
-    private Map<String, Integer> countDrinks(File drinkFile) throws IOException {
+    Map<String, Integer> countDrinks(File drinkFile) throws IOException {
         FileReader fileReader = new FileReader(drinkFile);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
